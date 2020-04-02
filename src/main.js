@@ -2,15 +2,15 @@
 
 const TASK_COUNT = 3;
 
-const mainBlock = document.querySelector(".main");
-const controlElement = document.querySelector(".main__control");
+const mainBlock = document.querySelector(`.main`);
+const controlElement = document.querySelector(`.main__control`);
 
 const Positions = {
-  BEFORE_BEGIN: 'beforebegin',
-  AFTER_BEGIN: 'afterbegin',
-  BEFORE_END: 'beforeend',
-  AFTER_END: 'afterend'
-}
+  BEFORE_BEGIN: `beforebegin`,
+  AFTER_BEGIN: `afterbegin`,
+  BEFORE_END: `beforeend`,
+  AFTER_END: `afterend`
+};
 
 const createMenuTemplate = () => {
   return (
@@ -42,8 +42,8 @@ const createMenuTemplate = () => {
         >STATISTICS</label
       >
     </section>`
-  )
-}
+  );
+};
 
 const createFilterTemplate = () => {
   return (
@@ -381,14 +381,14 @@ const createLoadMoreButtonTemplate = () => {
 
 const render = (container, template, place) => {
   container.insertAdjacentHTML(place, template);
-}
+};
 
 render(controlElement, createMenuTemplate(), Positions.BEFORE_END);
 render(mainBlock, createFilterTemplate(), Positions.BEFORE_END);
 render(mainBlock, createBoardTemplate(), Positions.BEFORE_END);
 
-const boardBlock = document.querySelector(".board");
-const tasksElement = boardBlock.querySelector(".board__tasks");
+const boardBlock = document.querySelector(`.board`);
+const tasksElement = boardBlock.querySelector(`.board__tasks`);
 
 render(tasksElement, createTaskEditTemplate(), Positions.BEFORE_END);
 
