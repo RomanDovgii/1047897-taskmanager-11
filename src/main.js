@@ -1,3 +1,10 @@
+import {createMenuTemplate} from "./components/site-menu.js";
+import {createFilterTemplate} from "./components/filter.js";
+import {createBoardTemplate} from "./components/board.js";
+import {createTaskEditTemplate} from "./components/taskEditor.js";
+import {createTaskTemplate} from "./components/task.js";
+import {createLoadMoreButtonTemplate} from "./components/moreButton.js";
+
 const TASK_COUNT = 3;
 
 const mainBlock = document.querySelector(`.main`);
@@ -9,13 +16,6 @@ const Positions = {
   BEFORE_END: `beforeend`,
   AFTER_END: `afterend`
 };
-
-import {createMenuTemplate} from "./components/site-menu.js";
-import {createFilterTemplate} from "./components/filter.js";
-import {createBoardTemplate} from "./components/board.js";
-import {createTaskEditTemplate} from "./components/taskEditor.js";
-import {createTaskTemplate} from "./components/task.js";
-import {createLoadMoreButtonTemplate} from "./components/moreButton.js";
 
 const render = (container, template, place) => {
   container.insertAdjacentHTML(place, template);
