@@ -15,16 +15,16 @@ const generateObject = (localName, localTasks) => {
       localCounter = localTasks.slice().filter((obj) => obj.dueDate > date).length;
       break;
     case `today`:
-      localCounter = localTasks.slice().filter((obj) => ((obj.dueDate !== null) && (obj.dueDate.getDate() === date.getDate()) && (obj.dueDate.getMonth() === date.getMonth()) && (obj.dueDate.getYear() === date.getYear()))).length;
+      localCounter = localTasks.slice().filter((obj) => ((obj.dueDate) && (obj.dueDate.getDate() === date.getDate()) && (obj.dueDate.getMonth() === date.getMonth()) && (obj.dueDate.getYear() === date.getYear()))).length;
       break;
     case `favorites`:
-      localCounter = localTasks.slice().filter((obj) => obj.isFavorite === true).length;
+      localCounter = localTasks.slice().filter((obj) => obj.isFavorite).length;
       break;
     case `repeating`:
       localCounter = localTasks.slice().filter((obj) => obj.repeatingDays !== ``).length;
       break;
     case `archive`:
-      localCounter = localTasks.slice().filter((obj) => obj.isArchive === true).length;
+      localCounter = localTasks.slice().filter((obj) => obj.isArchive).length;
       break;
     default:
       localCounter = 0;
