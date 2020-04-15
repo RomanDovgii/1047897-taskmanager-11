@@ -1,4 +1,4 @@
-import {COLORS, DAYS, MONTH_NAMES} from "../const.js";
+import {COLORS, DAYS, MONTH_NAMES} from "../utils.js";
 import {formatTime} from "../utils.js";
 
 

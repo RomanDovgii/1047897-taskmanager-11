@@ -1,6 +1,3 @@
-import {formatTime} from "../utils.js";
-import {isToday} from "../utils.js";
-
 const filterNames = [
   `all`, `overdue`, `today`, `favorites`, `repeating`, `archive`
 ];
@@ -11,10 +8,8 @@ const isEqual = (dateOne) => {
   let result;
 
   if (dateOne !== null) {
-    if (dateOne.getTime() === date.getTime()) {
+    if ((dateOne.getDate() === date.getDate()) && (dateOne.getMonth() === date.getMonth()) && (dateOne.getYear() === date.getYear())) {
       result = true;
-      console.log(date.getTime());
-      console.log(dateOne.getTime());
     }
   } else {
     result = false;
@@ -22,8 +17,6 @@ const isEqual = (dateOne) => {
 
   return result;
 };
-
-console.log(date);
 
 const generateFilters = (tasks) => {
 

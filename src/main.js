@@ -21,7 +21,6 @@ const siteMainElement = document.querySelector(`.main`);
 const siteHeaderElement = siteMainElement.querySelector(`.main__control`);
 
 const tasks = generateTasks(TASK_COUNT);
-console.log(tasks);
 const filters = generateFilters(tasks);
 
 render(siteHeaderElement, createMenuTemplate(), `beforeend`);

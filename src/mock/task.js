@@ -1,5 +1,5 @@
-import {COLORS} from "../const.js";
-import {DAYS} from "../const.js";
+import {COLORS} from "../utils.js";
+import {DAYS} from "../utils.js";
 import {getRandomArrayItem} from "../utils.js";
 import {getRandomIntegerNumber} from "../utils.js";
 
