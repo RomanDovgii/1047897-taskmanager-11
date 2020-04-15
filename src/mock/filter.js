@@ -5,7 +5,6 @@ const filterNames = [
 const date = new Date();
 
 const generateObject = (localName, localTasks) => {
-  let localObject;
   let localCounter;
 
   switch (localName) {
@@ -32,18 +31,15 @@ const generateObject = (localName, localTasks) => {
       break;
   }
 
-  localObject = {
+  return {
     name: localName,
     count: localCounter,
   };
-
-  return localObject;
 };
 
 const generateFilters = (tasks) => {
   return filterNames.map((it) => {
-    let filtersObjElement = generateObject(it, tasks);
-    return filtersObjElement;
+    return generateObject(it, tasks);
   });
 };
 
