@@ -1,4 +1,5 @@
 import {COLORS} from "../const.js";
+import {DAYS} from "../const.js";
 import {getRandomArrayItem} from "../utils.js";
 import {getRandomIntegerNumber} from "../utils.js";
 
@@ -7,16 +8,6 @@ const DescriptionItems = [
   `Сделать домашку`,
   `Пройти интенсив на соточку`,
 ];
-
-const DefaultRepeatingDays = {
-  "mo": false,
-  "tu": false,
-  "we": false,
-  "th": false,
-  "fr": false,
-  "sa": false,
-  "su": false,
-};
 
 const getRandomDate = () => {
   const targetDate = new Date();
@@ -29,15 +20,7 @@ const getRandomDate = () => {
 };
 
 const generateRepeatingDays = () => {
-  return Object.assign({}, DefaultRepeatingDays, {
-    "mo": Math.random() > 0.5,
-    "tu": Math.random() > 0.5,
-    "we": Math.random() > 0.5,
-    "th": Math.random() > 0.5,
-    "fr": Math.random() > 0.5,
-    "sa": Math.random() > 0.5,
-    "su": Math.random() > 0.5,
-  });
+  return DAYS.reduce((currentDays, key) => Object.assign(currentDays, {[key]: Math.random() > 0.5}), {});
 };
 
 const generateTask = () => {
@@ -46,7 +29,7 @@ const generateTask = () => {
   return {
     description: getRandomArrayItem(DescriptionItems),
     dueDate,
-    repeatingDays: dueDate ? DefaultRepeatingDays : generateRepeatingDays(),
+    repeatingDays: dueDate ? `` : generateRepeatingDays(),
     color: getRandomArrayItem(COLORS),
     isArchive: Math.random() > 0.5,
     isFavorite: Math.random() > 0.5,
@@ -58,6 +41,5 @@ const generateTasks = (count) => {
     .fill(``)
     .map(generateTask);
 };
-
 
 export {generateTask, generateTasks};
