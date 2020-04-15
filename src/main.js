@@ -2,7 +2,7 @@ import {createBoardTemplate} from "./components/board.js";
 import {createFilterTemplate} from "./components/filter.js";
 import {createLoadMoreButtonTemplate} from "./components/moreButton.js";
 import {createTaskEditTemplate} from "./components/task-edit.js";
-import {createTaskTemplate} from "./components/task.js";
+import {createTasksTemplate} from "./components/task.js";
 import {createMenuTemplate} from "./components/site-menu.js";
 import {createSortingTemplate} from "./components/sorting.js";
 import {generateFilters} from "./mock/filter.js";
@@ -35,7 +35,7 @@ render(taskListElement, createTaskEditTemplate(tasks[0]), `beforeend`);
 
 let showingTasksCount = SHOWING_TASKS_COUNT_ON_START;
 
-render(taskListElement, createTaskTemplate(tasks.slice(1, showingTasksCount)), `beforeend`);
+render(taskListElement, createTasksTemplate(tasks.slice(1, showingTasksCount)), `beforeend`);
 
 
 render(boardElement, createLoadMoreButtonTemplate(), `beforeend`);
@@ -47,7 +47,7 @@ loadMoreButton.addEventListener(`click`, () => {
   showingTasksCount = showingTasksCount + SHOWING_TASKS_COUNT_BY_BUTTON;
 
 
-  render(taskListElement, createTaskTemplate(tasks.slice(prevTasksCount, showingTasksCount)), `beforeend`);
+  render(taskListElement, createTasksTemplate(tasks.slice(prevTasksCount, showingTasksCount)), `beforeend`);
 
   if (showingTasksCount >= tasks.length) {
     loadMoreButton.remove();

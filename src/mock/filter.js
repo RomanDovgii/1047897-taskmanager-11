@@ -38,9 +38,7 @@ const generateObject = (localName, localTasks) => {
 };
 
 const generateFilters = (tasks) => {
-  return filterNames.map((it) => {
-    return generateObject(it, tasks);
-  });
+  return filterNames.map((it) => generateObject(it, tasks));
 };
 
 export {generateFilters};
