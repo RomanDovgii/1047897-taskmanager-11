@@ -20,8 +20,9 @@ const render = (container, template, place) => {
 const siteMainElement = document.querySelector(`.main`);
 const siteHeaderElement = siteMainElement.querySelector(`.main__control`);
 
-const filters = generateFilters();
 const tasks = generateTasks(TASK_COUNT);
+console.log(tasks);
+const filters = generateFilters(tasks);
 
 render(siteHeaderElement, createMenuTemplate(), `beforeend`);
 render(siteMainElement, createFilterTemplate(filters), `beforeend`);
@@ -37,6 +38,7 @@ let showingTasksCount = SHOWING_TASKS_COUNT_ON_START;
 
 tasks.slice(1, showingTasksCount)
   .forEach((task) => render(taskListElement, createTaskTemplate(task), `beforeend`));
+
 
 render(boardElement, createLoadMoreButtonTemplate(), `beforeend`);
 
