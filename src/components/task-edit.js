@@ -1,6 +1,26 @@
-import {COLORS, DAYS, MONTH_NAMES} from "../utils.js";
-import {formatTime} from "../utils.js";
+import {COLORS, DAYS, MONTH_NAMES, formatTime} from "../utils.js";
 
+const generateRepeatingTaskFieldsed = (markup) => {
+  return `<fieldset class="card__repeat-days">
+  <div class="card__repeat-days-inner">
+  ${markup}
+  </div>
+  </fieldset>`;
+};
+
+const generateDateTaskField = (localDate, localTime) => {
+  return `<fieldset class="card__date-deadline">
+        <label class="card__input-deadline-wrap">
+          <input
+            class="card__date"
+            type="text"
+            placeholder=""
+            name="date"
+            value="${localDate} ${localTime}"
+          />
+        </label>
+      </fieldset>`;
+};
 
 const createColorsMarkup = (colors, currentColor) => {
   return colors
@@ -89,35 +109,13 @@ export const createTaskEditTemplate = (task) => {
                   date: <span class="card__date-status">${isDateShowing ? `yes` : `no`}</span>
                 </button>
 
-                ${
-    isDateShowing ?
-      `<fieldset class="card__date-deadline">
-                      <label class="card__input-deadline-wrap">
-                        <input
-                          class="card__date"
-                          type="text"
-                          placeholder=""
-                          name="date"
-                          value="${date} ${time}"
-                        />
-                      </label>
-                    </fieldset>`
-      : ``
-    }
+                ${isDateShowing ? generateDateTaskField(date, time) : ``}
 
                 <button class="card__repeat-toggle" type="button">
                   repeat:<span class="card__repeat-status">${isRepeatingTask ? `yes` : `no`}</span>
                 </button>
 
-                  ${
-    isRepeatingTask ?
-      `<fieldset class="card__repeat-days">
-                      <div class="card__repeat-days-inner">
-                        ${repeatingDaysMarkup}
-                      </div>
-                    </fieldset>`
-      : ``
-    }
+                  ${isRepeatingTask ? generateRepeatingTaskFieldsed(repeatingDaysMarkup) : ``}
               </div>
             </div>
 

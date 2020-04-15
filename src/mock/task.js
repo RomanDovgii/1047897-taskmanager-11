@@ -1,7 +1,4 @@
-import {COLORS} from "../utils.js";
-import {DAYS} from "../utils.js";
-import {getRandomArrayItem} from "../utils.js";
-import {getRandomIntegerNumber} from "../utils.js";
+import {COLORS, DAYS, getRandomArrayItem, getRandomIntegerNumber} from "../utils.js";
 
 const DescriptionItems = [
   `Изучить теорию`,

@@ -4,69 +4,46 @@ const filterNames = [
 
 const date = new Date();
 
-const isEqual = (dateOne) => {
-  let result;
+const generateObject = (localName, localTasks) => {
+  let localObject;
+  let localCounter;
 
-  if (dateOne !== null) {
-    if ((dateOne.getDate() === date.getDate()) && (dateOne.getMonth() === date.getMonth()) && (dateOne.getYear() === date.getYear())) {
-      result = true;
-    }
-  } else {
-    result = false;
+  switch (localName) {
+    case `all`:
+      localCounter = localTasks.length;
+      break;
+    case `overdue`:
+      localCounter = localTasks.slice().filter((obj) => obj.dueDate > date).length;
+      break;
+    case `today`:
+      localCounter = localTasks.slice().filter((obj) => ((obj.dueDate !== null) && (obj.dueDate.getDate() === date.getDate()) && (obj.dueDate.getMonth() === date.getMonth()) && (obj.dueDate.getYear() === date.getYear()))).length;
+      break;
+    case `favorites`:
+      localCounter = localTasks.slice().filter((obj) => obj.isFavorite === true).length;
+      break;
+    case `repeating`:
+      localCounter = localTasks.slice().filter((obj) => obj.repeatingDays !== ``).length;
+      break;
+    case `archive`:
+      localCounter = localTasks.slice().filter((obj) => obj.isArchive === true).length;
+      break;
+    default:
+      localCounter = 0;
+      break;
   }
 
-  return result;
+  localObject = {
+    name: localName,
+    count: localCounter,
+  };
+
+  return localObject;
 };
 
 const generateFilters = (tasks) => {
-
   return filterNames.map((it) => {
-    let filtersObjElement;
-    switch (it) {
-      case `all`:
-        filtersObjElement = {
-          name: it,
-          count: tasks.length,
-        };
-        break;
-      case `overdue`:
-        filtersObjElement = {
-          name: it,
-          count: tasks.slice().filter((obj) => obj.dueDate > date).length,
-        };
-        break;
-      case `today`:
-        filtersObjElement = {
-          name: it,
-          count: tasks.slice().filter((obj) => isEqual(obj.dueDate)).length,
-        };
-        break;
-      case `favorites`:
-        filtersObjElement = {
-          name: it,
-          count: tasks.slice().filter((obj) => obj.isFavorite === true).length,
-        };
-
-        break;
-      case `repeating`:
-        filtersObjElement = {
-          name: it,
-          count: tasks.slice().filter((obj) => obj.repeatingDays !== ``).length,
-        };
-
-        break;
-      case `archive`:
-        filtersObjElement = {
-          name: it,
-          count: tasks.slice().filter((obj) => obj.isArchive === true).length,
-        };
-
-        break;
-      default:
-
-    }
+    let filtersObjElement = generateObject(it, tasks);
     return filtersObjElement;
-
   });
 };
 
