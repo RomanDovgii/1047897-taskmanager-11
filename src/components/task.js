@@ -1,7 +1,6 @@
-import {MONTH_NAMES, formatTime} from "../utils.js";
+import {createElement, MONTH_NAMES, formatTime} from "../utils.js";
 
-export const createTaskTemplate = (task) => {
-
+const createTaskTemplate = (task) => {
   const {description, dueDate, color, repeatingDays, isArchive, isFavorite} = task;
 
   const isExpired = dueDate instanceof Date && dueDate < Date.now();
@@ -60,12 +59,26 @@ export const createTaskTemplate = (task) => {
   </article>`;
 };
 
-export const createTasksTemplate = (tasks) => {
-  let tasksElement = ``;
-  for (const element in tasks) {
-    if (tasks[element]) {
-      tasksElement += createTaskTemplate(tasks[element]);
-    }
+export default class Task {
+  constructor(task) {
+    this._task = task;
+
+    this._element = null;
   }
-  return tasksElement;
-};
+
+  getTemplate() {
+    return createTaskTemplate(this._task);
+  }
+
+  getElement() {
+    if (!this._element) {
+      this._element = createElement(this.getTemplate());
+    }
+
+    return this._element;
+  }
+
+  removeElement() {
+    this._element = null;
+  }
+}
