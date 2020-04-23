@@ -1,7 +1,8 @@
-import {MONTH_NAMES, formatTime} from "../utils.js";
+import TaskEditComponent from "./task-edit.js";
+import TaskComponent from "./task.js";
+import {createElement, MONTH_NAMES, RenderPosition, formatTime, render} from "../utils.js";
 
-export const createTaskTemplate = (task) => {
-
+const createTaskTemplate = (task) => {
   const {description, dueDate, color, repeatingDays, isArchive, isFavorite} = task;
 
   const isExpired = dueDate instanceof Date && dueDate < Date.now();
@@ -60,12 +61,62 @@ export const createTaskTemplate = (task) => {
   </article>`;
 };
 
-export const createTasksTemplate = (tasks) => {
-  let tasksElement = ``;
-  for (const element in tasks) {
-    if (tasks[element]) {
-      tasksElement += createTaskTemplate(tasks[element]);
-    }
+export default class Task {
+  constructor(task) {
+    this._task = task;
+
+    this._element = null;
   }
-  return tasksElement;
-};
+
+  getTemplate() {
+    return createTaskTemplate(this._task);
+  }
+
+  getElement() {
+    if (!this._element) {
+      this._element = createElement(this.getTemplate());
+    }
+
+    return this._element;
+  }
+
+  removeElement() {
+    this._element = null;
+  }
+
+  renderTask(taskListElement, task) {
+    const replaceTaskToEdit = () => {
+      taskListElement.replaceChild(taskEditComponent.getElement(), taskComponent.getElement());
+    };
+
+    const replaceEditToTask = () => {
+      taskListElement.replaceChild(taskComponent.getElement(), taskEditComponent.getElement());
+    };
+
+    const onEscKeyDown = (evt) => {
+      const isEscKey = evt.key === `Escape` || evt.key === `Esc`;
+
+      if (isEscKey) {
+        replaceEditToTask();
+        document.removeEventListener(`keydown`, onEscKeyDown);
+      }
+    };
+
+    const taskComponent = new TaskComponent(task);
+    const editButton = taskComponent.getElement().querySelector(`.card__btn--edit`);
+    editButton.addEventListener(`click`, () => {
+      replaceTaskToEdit();
+      document.addEventListener(`keydown`, onEscKeyDown);
+    });
+
+    const taskEditComponent = new TaskEditComponent(task);
+    const editForm = taskEditComponent.getElement().querySelector(`form`);
+    editForm.addEventListener(`submit`, (evt) => {
+      evt.preventDefault();
+      replaceEditToTask();
+      document.removeEventListener(`keydown`, onEscKeyDown);
+    });
+
+    render(taskListElement, taskComponent.getElement(), RenderPosition.BEFOREEND);
+  }
+}
