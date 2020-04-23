@@ -1,4 +1,6 @@
-import {createElement, MONTH_NAMES, formatTime} from "../utils.js";
+import TaskEditComponent from "./task-edit.js";
+import TaskComponent from "./task.js";
+import {createElement, MONTH_NAMES, RenderPosition, formatTime, render} from "../utils.js";
 
 const createTaskTemplate = (task) => {
   const {description, dueDate, color, repeatingDays, isArchive, isFavorite} = task;
@@ -80,5 +82,41 @@ export default class Task {
 
   removeElement() {
     this._element = null;
+  }
+
+  renderTask(taskListElement, task) {
+    const replaceTaskToEdit = () => {
+      taskListElement.replaceChild(taskEditComponent.getElement(), taskComponent.getElement());
+    };
+
+    const replaceEditToTask = () => {
+      taskListElement.replaceChild(taskComponent.getElement(), taskEditComponent.getElement());
+    };
+
+    const onEscKeyDown = (evt) => {
+      const isEscKey = evt.key === `Escape` || evt.key === `Esc`;
+
+      if (isEscKey) {
+        replaceEditToTask();
+        document.removeEventListener(`keydown`, onEscKeyDown);
+      }
+    };
+
+    const taskComponent = new TaskComponent(task);
+    const editButton = taskComponent.getElement().querySelector(`.card__btn--edit`);
+    editButton.addEventListener(`click`, () => {
+      replaceTaskToEdit();
+      document.addEventListener(`keydown`, onEscKeyDown);
+    });
+
+    const taskEditComponent = new TaskEditComponent(task);
+    const editForm = taskEditComponent.getElement().querySelector(`form`);
+    editForm.addEventListener(`submit`, (evt) => {
+      evt.preventDefault();
+      replaceEditToTask();
+      document.removeEventListener(`keydown`, onEscKeyDown);
+    });
+
+    render(taskListElement, taskComponent.getElement(), RenderPosition.BEFOREEND);
   }
 }
