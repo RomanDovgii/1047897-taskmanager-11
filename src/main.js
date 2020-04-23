@@ -1,7 +1,6 @@
 import BoardComponent from "./components/board.js";
 import FilterComponent from "./components/filter.js";
 import LoadMoreButtonComponent from "./components/more-button.js";
-
 import TasksComponent from "./components/tasks.js";
 import SiteMenuComponent from "./components/site-menu.js";
 import SortComponent from "./components/sort.js";
